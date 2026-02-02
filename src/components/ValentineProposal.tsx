@@ -32,8 +32,24 @@ export default function ValentineProposal() {
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [noClickCount, setNoClickCount] = useState(0);
   const [showTempImage, setShowTempImage] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const noButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Images to cycle through
+  const images = [
+    { src: "/sumn1.jpg", alt: "Valentine" },
+    { src: "/aliaya_eehee_valentine.png", alt: "Valentine Special" }
+  ];
+
+  // Swap images every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const moveNoButton = () => {
     if (!containerRef.current || !noButtonRef.current) return;
@@ -130,43 +146,53 @@ export default function ValentineProposal() {
   return (
     <div 
       ref={containerRef}
-      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 py-8"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 py-8"
     >
       {/* Subtle floating hearts */}
       {[...Array(5)].map((_, i) => (
         <FloatingHeart key={i} delay={i * 0.8} />
       ))}
 
-      {/* Images on front */}
-      <div className="mb-6 md:mb-8 flex flex-col items-center gap-4">
-        <img 
-          src="/sumn1.jpg" 
-          alt="Valentine" 
-          className="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full shadow-lg"
-        />
-        <img 
-          src="/aliaya_eehee_valentine.png" 
-          alt="Valentine Special" 
-          className="w-40 h-40 md:w-56 md:h-56 object-contain"
-        />
-      </div>
-
-      {/* Main content */}
-      <div className="text-center z-10 max-w-md w-full">
-        <div className="text-5xl md:text-6xl mb-4 md:mb-6 animate-pulse-heart text-primary">
-          ♥
+      {/* Main content container */}
+      <div className="flex flex-col items-center gap-8 max-w-4xl w-full">
+        {/* Single large swapping image */}
+        <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mb-4">
+          <div className="relative w-full h-full">
+            {images.map((image, index) => (
+              <div 
+                key={index}
+                className={`absolute inset-0 rounded-full shadow-2xl border-4 border-white transition-opacity duration-1000 ${
+                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                } ${image.src.includes('aliaya_eehee_valentine') ? 'bg-purple-100' : ''}`}
+              >
+                <img 
+                  src={image.src} 
+                  alt={image.alt}
+                  className={`w-full h-full ${
+                    image.src.includes('aliaya_eehee_valentine') ? 'object-contain p-12' : 'object-cover'
+                  } rounded-full`}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        
-        <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 md:mb-4">
-          Heyyy  Aliaya
-        </h1>
-        
-        <p className="text-lg md:text-xl lg:text-2xl text-foreground mb-8 md:mb-12 px-4">
-          Will you be my Valentine?
-        </p>
 
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 relative min-h-[200px] w-full px-4">
+        {/* Main content */}
+        <div className="text-center z-10 max-w-md w-full">
+          <div className="text-5xl md:text-6xl lg:text-7xl mb-4 md:mb-6 animate-pulse-heart text-primary">
+            ♥
+          </div>
+          
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 md:mb-4">
+            Heyyy  Aliaya
+          </h1>
+          
+          <p className="text-lg md:text-xl lg:text-2xl text-foreground mb-8 md:mb-12">
+            Will you be my Valentine?
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 relative min-h-[200px] w-full">
           <Button 
             size="lg"
             onClick={() => setAccepted(true)}
@@ -175,31 +201,32 @@ export default function ValentineProposal() {
             Yes! 
           </Button>
           
-          <Button 
-            ref={noButtonRef}
-            variant="outline"
-            size="lg"
-            onMouseEnter={!isTouchDevice ? handleNoInteraction : undefined}
-            onMouseDown={handleNoInteraction}
-            onTouchStart={handleNoInteraction}
-            onTouchMove={handleNoInteraction}
-            onClick={handleNoInteraction}
-            style={{
-              transform: `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)`,
-              transition: 'transform 0.2s ease-out',
-              position: 'relative'
-            }}
-            className="text-base md:text-lg px-6 md:px-8 py-4 md:py-5 rounded-full border-2 border-muted-foreground/30 text-muted-foreground no-button-glow w-auto"
-          >
-            No {isTouchDevice ? '👆' : ''}
-          </Button>
+            <Button 
+              ref={noButtonRef}
+              variant="outline"
+              size="lg"
+              onMouseEnter={!isTouchDevice ? handleNoInteraction : undefined}
+              onMouseDown={handleNoInteraction}
+              onTouchStart={handleNoInteraction}
+              onTouchMove={handleNoInteraction}
+              onClick={handleNoInteraction}
+              style={{
+                transform: `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)`,
+                transition: 'transform 0.2s ease-out',
+                position: 'relative'
+              }}
+              className="text-base md:text-lg px-6 md:px-8 py-4 md:py-5 rounded-full border-2 border-muted-foreground/30 text-muted-foreground no-button-glow w-auto"
+            >
+              No {isTouchDevice ? '👆' : ''}
+            </Button>
+          </div>
+          
+          <p className="mt-8 md:mt-12 text-xs md:text-sm text-muted-foreground italic text-center">
+            {isTouchDevice 
+              ? "(Try tapping the No button... if you can catch it!)" 
+              : "(Try clicking the No button... I dare you!)"}
+          </p>
         </div>
-        
-        <p className="mt-8 md:mt-12 text-xs md:text-sm text-muted-foreground italic px-4">
-          {isTouchDevice 
-            ? "(Try tapping the No button... if you can catch it!)" 
-            : "(Try clicking the No button... I dare you!)"}
-        </p>
       </div>
     </div>
   );
