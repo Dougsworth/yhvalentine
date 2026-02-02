@@ -116,11 +116,11 @@ export default function ValentineProposal() {
           </p>
           
           <div className="mt-8 flex justify-center">
-            <div className="flex items-center justify-center space-x-4">
-              <div className="text-4xl md:text-6xl animate-bounce">💕</div>
-              <div className="text-4xl md:text-6xl animate-bounce" style={{ animationDelay: '0.2s' }}>💖</div>
-              <div className="text-4xl md:text-6xl animate-bounce" style={{ animationDelay: '0.4s' }}>💗</div>
-            </div>
+            <img 
+              src="/sumn2.jpeg" 
+              alt="Celebration" 
+              className="w-48 h-48 md:w-64 md:h-64 object-cover rounded-lg shadow-xl"
+            />
           </div>
         </div>
       </div>
@@ -137,12 +137,17 @@ export default function ValentineProposal() {
         <FloatingHeart key={i} delay={i * 0.8} />
       ))}
 
-      {/* Image on front */}
-      <div className="mb-6 md:mb-8">
+      {/* Images on front */}
+      <div className="mb-6 md:mb-8 flex flex-col items-center gap-4">
         <img 
           src="/sumn1.jpg" 
           alt="Valentine" 
           className="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full shadow-lg"
+        />
+        <img 
+          src="/aliaya_eehee_valentine.png" 
+          alt="Valentine Special" 
+          className="w-40 h-40 md:w-56 md:h-56 object-contain"
         />
       </div>
 
