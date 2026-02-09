@@ -85,7 +85,7 @@ export default function ValentineProposal() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden p-4">
         <img 
-          src="/cliffaneka.jpeg" 
+          src="/husky-pointing-dog-pointing.png" 
           alt="Surprise!" 
           className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl animate-fade-in"
         />
