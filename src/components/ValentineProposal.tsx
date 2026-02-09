@@ -32,24 +32,8 @@ export default function ValentineProposal() {
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [noClickCount, setNoClickCount] = useState(0);
   const [showTempImage, setShowTempImage] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const noButtonRef = useRef<HTMLButtonElement>(null);
-
-  // Images to cycle through
-  const images = [
-    { src: "/sumn1.jpg", alt: "Valentine" },
-    { src: "/aliaya_eehee_valentine.png", alt: "Valentine Special" }
-  ];
-
-  // Swap images every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const moveNoButton = () => {
     if (!containerRef.current || !noButtonRef.current) return;
@@ -101,7 +85,7 @@ export default function ValentineProposal() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden p-4">
         <img 
-          src="/aliaya.jpeg" 
+          src="/cliffaneka.jpeg" 
           alt="Surprise!" 
           className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl animate-fade-in"
         />
@@ -155,25 +139,14 @@ export default function ValentineProposal() {
 
       {/* Main content container */}
       <div className="flex flex-col items-center gap-8 max-w-4xl w-full">
-        {/* Single large swapping image */}
+        {/* Single image */}
         <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mb-4">
-          <div className="relative w-full h-full">
-            {images.map((image, index) => (
-              <div 
-                key={index}
-                className={`absolute inset-0 rounded-full shadow-2xl border-4 border-white transition-opacity duration-1000 ${
-                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                } ${image.src.includes('aliaya_eehee_valentine') ? 'bg-purple-100' : ''}`}
-              >
-                <img 
-                  src={image.src} 
-                  alt={image.alt}
-                  className={`w-full h-full ${
-                    image.src.includes('aliaya_eehee_valentine') ? 'object-contain p-12' : 'object-cover'
-                  } rounded-full`}
-                />
-              </div>
-            ))}
+          <div className="relative w-full h-full rounded-full shadow-2xl border-4 border-white overflow-hidden">
+            <img 
+              src="/sumn1.jpg" 
+              alt="Valentine"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
         </div>
 
@@ -184,7 +157,7 @@ export default function ValentineProposal() {
           </div>
           
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 md:mb-4">
-            Heyyy  Aliaya
+            Heyyy  Cliffaneka
           </h1>
           
           <p className="text-lg md:text-xl lg:text-2xl text-foreground mb-8 md:mb-12">
