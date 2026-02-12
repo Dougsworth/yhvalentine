@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 350 100% 95%;
-    --foreground: 350 80% 20%;
+    --background: 330 60% 97%;
+    --foreground: 340 45% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 350 80% 20%;
+    --card: 330 55% 98%;
+    --card-foreground: 340 45% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 350 80% 20%;
+    --popover: 330 55% 98%;
+    --popover-foreground: 340 45% 25%;
 
-    --primary: 350 90% 55%;
+    --primary: 335 78% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 350 70% 85%;
-    --secondary-foreground: 350 80% 25%;
+    --secondary: 330 65% 90%;
+    --secondary-foreground: 340 50% 30%;
 
-    --muted: 350 30% 90%;
-    --muted-foreground: 350 40% 40%;
+    --muted: 330 40% 93%;
+    --muted-foreground: 340 30% 50%;
 
-    --accent: 350 100% 65%;
+    --accent: 320 90% 68%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 350 50% 85%;
-    --input: 350 50% 85%;
-    --ring: 350 90% 55%;
+    --border: 330 45% 88%;
+    --input: 330 45% 88%;
+    --ring: 335 78% 55%;
 
     --radius: 1rem;
   }
@@ -42,8 +42,10 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    @apply text-foreground;
+    font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', serif;
+    background: linear-gradient(160deg, hsl(330 70% 96%) 0%, hsl(340 75% 92%) 35%, hsl(320 60% 94%) 70%, hsl(330 65% 95%) 100%);
+    min-height: 100vh;
   }
 }
 
@@ -53,11 +55,15 @@
   }
   
   .heart-shadow {
-    text-shadow: 0 0 20px hsl(350 90% 55% / 0.5);
+    text-shadow: 0 0 25px hsl(335 78% 55% / 0.5), 0 0 50px hsl(335 78% 55% / 0.2);
   }
-  
+
   .no-button-glow {
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+    box-shadow: 0 0 15px hsl(335 78% 55% / 0.3), 0 0 30px hsl(335 78% 55% / 0.1);
+  }
+
+  .pink-soft {
+    background: linear-gradient(135deg, hsl(330 70% 96%) 0%, hsl(320 60% 95%) 100%);
   }
 }
 
@@ -142,4 +148,22 @@
 .untouchable {
   pointer-events: none;
   user-select: none;
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translateY(-10%) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) translateX(40px);
+    opacity: 0;
+  }
+}
+
+.animate-petal-fall {
+  animation: petal-fall 6s ease-in-out infinite;
 }
